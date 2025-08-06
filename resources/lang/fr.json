@@ -1,0 +1,26 @@
+{
+  "Dashboard": "Tableau de bord",
+  "Log Out": "Se déconnecter",
+  "Profile Information": "Informations du profil",
+  "Update your account's profile information and email address.": "Mettez à jour les informations de votre profil et votre adresse e-mail.",
+  "Name": "Nom",
+  "SAVE": "ENREGISTRER",
+  "Update Password": "Mettre à jour le mot de passe",
+  "Ensure your account is using a long, random password to stay secure.": "Assurez-vous que votre compte utilise un mot de passe long et aléatoire pour rester sécurisé.",
+  "Current Password": "Mot de passe actuel",
+  "New Password": "Nouveau mot de passe",
+  "Confirm Password": "Confirmer le mot de passe",
+  "Delete Account": "Supprimer le compte",
+  "Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.": "Une fois votre compte supprimé, toutes ses ressources et données seront définitivement supprimées. Avant de supprimer votre compte, veuillez télécharger toutes les données ou informations que vous souhaitez conserver.",
+  
+  "Remember me": "Se souvenir de moi",
+  "Password": "Mot de passe",
+  "LOG IN": "SE CONNECTER",
+  "Register as": "S'inscrire en tant que",
+  "Customer": "Client",
+  "Vendor": "Vendeur",
+  "Already registered?": "Déjà inscrit ?",
+  "Register": "S'inscrire",
+  "Forgot your password?": "Mot de passe oublié ?"
+}
+
