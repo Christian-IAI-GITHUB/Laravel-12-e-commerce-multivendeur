@@ -17,6 +17,7 @@ return new class extends Migration
             $table->integer('brand_id')->nullable();
             $table->integer('admin_id');
             $table->string('admin_role');
+            $table->string('user_id');
 
             $table->string('product_name');
             $table->string('product_code');
@@ -52,8 +53,9 @@ return new class extends Migration
             $table->enum('is_featured', ['No', 'Yes']);
             $table->tinyInteger('status');
 
-            $table->unsignedBigInteger('user_id')->nullable()->after('id');
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
+
+            $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
+
 
             $table->timestamps();
         });

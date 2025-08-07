@@ -21,6 +21,11 @@ use App\Models\Category;
 }); */
 
 
+//vend
+use App\Http\Controllers\Vendor\VendorController;
+use App\Http\Controllers\Vendor\VendorProductController;
+
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -162,9 +167,74 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 
 // Route dashboard pour les vendeurs
-Route::get('/vendor/dashboard', function () {
+/* Route::get('/vendor/dashboard', function () {
     return view('vendor');
 })->middleware(['auth'])->name('vendor');
+ */
 
 
 
+
+
+//vendeur fornisseur
+
+// Dans routes/web.php - Ajouter ces routes après les routes d'authentification
+
+
+
+// // Routes pour les vendeurs (fournisseurs)
+// Route::middleware(['auth', 'vendor.auth'])->prefix('vendor')->group(function () {
+    
+//     // Dashboard vendeur
+//     Route::get('/dashboard', [VendorController::class, 'dashboard'])->name('vendor.dashboard');
+    
+//     // CRUD Produits pour vendeurs
+//     Route::resource('products', VendorProductController::class, [
+//         'names' => [
+//             'index' => 'vendor.products.index',
+//             'create' => 'vendor.products.create',
+//             'store' => 'vendor.products.store',
+//             'show' => 'vendor.products.show',
+//             'edit' => 'vendor.products.edit',
+//             'update' => 'vendor.products.update',
+//             'destroy' => 'vendor.products.destroy',
+//         ]
+//     ]);
+    
+//     // Route pour changer le statut d'un produit
+//     Route::post('products/{id}/update-status', [VendorProductController::class, 'updateStatus'])
+//          ->name('vendor.products.update-status');
+// });
+
+// Route::prefix('vendor')->name('vendor.')->middleware(['auth', 'vendor.auth'])->group(function () {
+//     // Routes existantes...
+    
+//     // Route pour les produits
+//     Route::resource('products', App\Http\Controllers\Vendor\VendorProductController::class);
+    
+//     // Ou si vous préférez définir manuellement :
+//     Route::get('products', [App\Http\Controllers\Vendor\VendorProductController::class, 'index'])->name('products.index');
+//     Route::get('products/create', [App\Http\Controllers\Vendor\VendorProductController::class, 'create'])->name('products.create');
+//     Route::post('products', [App\Http\Controllers\Vendor\VendorProductController::class, 'store'])->name('products.store');
+//     Route::get('products/{product}', [App\Http\Controllers\Vendor\VendorProductController::class, 'show'])->name('products.show');
+//     Route::get('products/{product}/edit', [App\Http\Controllers\Vendor\VendorProductController::class, 'edit'])->name('products.edit');
+//     Route::put('products/{product}', [App\Http\Controllers\Vendor\VendorProductController::class, 'update'])->name('products.update');
+//     Route::delete('products/{product}', [App\Http\Controllers\Vendor\VendorProductController::class, 'destroy'])->name('products.destroy');
+// });
+// // N'oubliez pas d'enregistrer le middleware dans app/Http/Kernel.php
+// // Dans $routeMiddleware :
+// // 'vendor.auth' => \App\Http\Middleware\VendorAuth::class,
+
+// Routes pour les vendeurs (fournisseurs)
+Route::middleware(['auth', 'vendor.auth'])->prefix('vendor')->name('vendor.')->group(function () {
+    
+    // Dashboard vendeur
+    Route::get('/dashboard', [VendorController::class, 'dashboard'])->name('dashboard');
+    
+    // CRUD Produits pour vendeurs
+    Route::resource('products', VendorProductController::class);
+    
+    // Route supplémentaire pour changer le statut d'un produit
+    Route::post('products/{id}/update-status', [VendorProductController::class, 'updateStatus'])
+         ->name('products.update-status');
+});

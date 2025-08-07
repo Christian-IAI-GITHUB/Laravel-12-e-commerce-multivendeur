@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Category extends Model
 {
@@ -84,4 +85,123 @@ class Category extends Model
     ];
 }
 
+
+   use HasFactory;
+
+    protected $fillable = [
+        'parent_id',
+        'name',
+        'image',
+        'size_chart',
+        'discount',
+        'description',
+        'url',
+        'meta_title',
+        'meta_description',
+        'meta_keywords',
+        'menu_status',
+        'status'
+    ];
+
+    protected $casts = [
+        'discount' => 'decimal:2',
+        'menu_status' => 'boolean',
+        'status' => 'boolean',
+    ];
+
+    /**
+     * Relations
+     */
+    
+    /**
+     * Relation avec les produits
+     */
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
+
+    /**
+     * Relation parent (catégorie parente)
+     */
+    public function parent()
+    {
+        return $this->belongsTo(Category::class, 'parent_id');
+    }
+
+    /**
+     * Relation enfants (sous-catégories)
+     */
+    public function children()
+    {
+        return $this->hasMany(Category::class, 'parent_id');
+    }
+
+    /**
+     * Scopes
+     */
+    
+    /**
+     * Scope pour les catégories actives
+     */
+    public function scopeActive($query)
+    {
+        return $query->where('status', 1);
+    }
+
+    /**
+     * Scope pour les catégories dans le menu
+     */
+    public function scopeInMenu($query)
+    {
+        return $query->where('menu_status', 1);
+    }
+
+    /**
+     * Scope pour les catégories principales (sans parent)
+     */
+    public function scopeMain($query)
+    {
+        return $query->whereNull('parent_id');
+    }
+
+    /**
+     * Scope pour les sous-catégories
+     */
+    public function scopeSubCategories($query)
+    {
+        return $query->whereNotNull('parent_id');
+    }
+
+    /**
+     * Accessors
+     */
+    
+    /**
+     * Accessor pour l'URL de l'image
+     */
+    public function getImageUrlAttribute()
+    {
+        if ($this->image) {
+            return asset('front/images/categories/' . $this->image);
+        }
+        return asset('front/images/categories/no-image.jpg');
+    }
+
+    /**
+     * Vérifier si c'est une catégorie principale
+     */
+    public function isMainCategory()
+    {
+        return is_null($this->parent_id);
+    }
+
+    /**
+     * Vérifier si la catégorie a des sous-catégories
+     */
+    public function hasChildren()
+    {
+        return $this->children()->count() > 0;
+    }
 }
+

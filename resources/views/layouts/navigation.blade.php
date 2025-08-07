@@ -29,11 +29,14 @@
                 </div> -->
                 @if(Auth::check() && Auth::user()->role == 1)
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link href="#" :active="false">
-                            {{ __('Ajouter un produit') }}
+                        <x-nav-link 
+                            href="{{ route('vendor.dashboard') }}" 
+                            :active="request()->routeIs('vendor.dashboard')">
+                            {{ __('Gérer mes produits') }}
                         </x-nav-link>
                     </div>
                 @endif
+
 
 
 
