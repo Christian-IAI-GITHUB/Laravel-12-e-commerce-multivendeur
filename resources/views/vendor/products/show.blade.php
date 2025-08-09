@@ -93,7 +93,7 @@
                                             </tr>
                                             <tr>
                                                 <td><strong>Prix final:</strong></td>
-                                                <td class="text-success"><strong>{{ number_format($product->final_price, 2) }} €</strong></td>
+                                                <td class="text-success"><strong>{{ number_format($product->final_price, 2) }} FCFA</strong></td>
                                             </tr>
                                         @endif
                                         <tr>

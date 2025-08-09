@@ -11,9 +11,10 @@ use Illuminate\Support\Facades\Response;
 
 
 
+
 //Front Controller Routes
 use App\Http\Controllers\Front\IndexController;
-use App\Http\Controllers\Front\ProductController as ProductFrontController;
+use App\Http\Controllers\Front\ProductFrontController;
 use App\Models\Category;
 
 /* Route::get('/', function () {
@@ -238,3 +239,36 @@ Route::middleware(['auth', 'vendor.auth'])->prefix('vendor')->name('vendor.')->g
     Route::post('products/{id}/update-status', [VendorProductController::class, 'updateStatus'])
          ->name('products.update-status');
 });
+
+// Routes pour les produits front-end
+// Route::get('/products', [Front\ProductController::class, 'index'])->name('products.index');
+// Route::get('/product/{product}', [Front\ProductController::class, 'show'])->name('products.show');
+
+// Ou si vous utilisez le ProductController principal :
+//Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+//Route::get('/product/{product}', [ProductController::class, 'show'])->name('products.show');
+//Route::get('/product/{id}', [ProductController::class, 'show'])->name('products.show');
+//Route::get('/product/{id}', [ProductController::class, 'show'])->name('products.show');
+
+// Ou si vous utilisez le ProductController principal :
+//Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+//Route::get('/product/{product}', [ProductController::class, 'show'])->name('products.show');
+//Route::get('/products/all', [ProductController::class, 'allProducts'])->name('products.all');
+
+Route::prefix('products')->name('products.')->group(function () {
+    // Liste de tous les produits
+    Route::get('/all', [ProductFrontController::class, 'allProducts'])->name('all');
+
+    // Recherche AJAX
+    Route::get('/search/ajax', [ProductFrontController::class, 'search'])->name('search');
+
+    // Promotions
+    Route::get('/special/promotions', [ProductFrontController::class, 'promotions'])->name('promotions');
+
+    // Produits mis en avant
+    Route::get('/special/featured', [ProductFrontController::class, 'featured'])->name('featured');
+
+    // Détails d'un produit (ID passé en paramètre)
+    Route::get('/{id}', [ProductFrontController::class, 'show'])->name('show');
+});
+//Route::post('/cart/add', [CartController::class, 'add'])->name('cart.add');

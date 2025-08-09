@@ -174,7 +174,7 @@
                                 <a href="{{ route('login') }}" class="nav-item nav-link">Se connecter</a>
                                 <a href="{{ route('register') }}" class="nav-item nav-link">S'inscrire</a>
                             @else
-                                <a href="{{ url('/dashboard') }}" class="nav-item nav-link">Tableau de bord</a>
+                                <a href="{{ route('vendor.dashboard') }}" class="nav-item nav-link">Tableau de bord</a>
 
                                 <form method="POST" action="{{ route('logout') }}" class="d-inline">
                                     @csrf
